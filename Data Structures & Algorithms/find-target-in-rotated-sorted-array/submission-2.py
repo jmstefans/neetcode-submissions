@@ -1,0 +1,24 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        l, r = 0, len(nums) - 1
+
+        while l <= r:
+            m = (l + r) // 2
+
+            if nums[m] == target:
+                return m
+
+            # if the middle number is part of the left sorted array then search left if target is between them otherwise search right
+            if nums[m] >= nums[l]:
+                if nums[l] <= target and target <= nums[m]:
+                    r = m - 1
+                else:
+                    l = m + 1
+            # else the middle number is part of the right softed array then search right if target is between them otherwise search left
+            else:
+                if nums[m] <= target and target <= nums[r]:
+                    l = m + 1
+                else:
+                    r = m - 1
+            
+        return -1
